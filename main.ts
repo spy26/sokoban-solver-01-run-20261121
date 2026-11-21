@@ -319,6 +319,9 @@ function pushSearch(board: Board, maxStates: number): { pushes: number; moves: s
     return sum;
   };
 
+  // More boxes than goals can never be solved — and the matching heuristic
+  // below indexes goals by box, so bail out before it can throw.
+  if (goals.length < startBoxes.length) return null;
   if (heuristic(startBoxes) === Infinity) return null;
 
   const seen = new Int32Array(size); // region stamps at expansion
